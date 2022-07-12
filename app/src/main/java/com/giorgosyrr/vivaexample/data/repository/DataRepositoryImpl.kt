@@ -1,6 +1,7 @@
 package com.giorgosyrr.vivaexample.data.repository
 
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.util.Log.d
 import com.giorgosyrr.vivaexample.data.db.AppDatabase
@@ -31,16 +32,17 @@ class DataRepositoryImpl @Inject constructor(apiManager: ApiManager, database: A
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                Log.d("TAG", "item added: subscribe:$it")
+                d("TAG", "item added: subscribe:$it")
             }
 
+    @SuppressLint("CheckResult")
     override fun deleteAllUsers() {
         Observable
             .fromCallable { database.dataDao().deleteAll() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                Log.d("TAG", "database rows cleared:: subscribe:$it")
+                d("TAG", "database rows cleared:: subscribe:$it")
             }
 
     }
